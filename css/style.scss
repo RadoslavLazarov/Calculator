@@ -1,0 +1,102 @@
+$color-gray-light: #939393;
+$color-gray-medium: #3c3c3c;
+$color-gray-dark: #1e1e1e;
+$color-blue-light: #5757ff;
+$color-blue-dark: #3030fa;
+$color-red-light: #fc4343;
+$color-red-dark: #ff2a2a;
+
+%display{
+    background-color: $color-gray-medium;
+    border-left: 2px solid $color-gray-dark;
+    border-right: 2px solid $color-gray-dark;
+    border-top: none;
+    border-bottom: none;
+    cursor: default;
+    color: $color-gray-light;
+    text-align: right;
+    font-weight: 600;
+    padding-right: 15px;
+}
+html, body{
+    height: 100%;
+    background-color: $color-gray-light;
+}
+input:focus, button:focus{
+    outline: none;
+}
+.buttons-row{
+    .button{
+        border: 1px solid $color-gray-medium;
+        background-color: $color-gray-dark;
+        font-size: 2em;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .button-number{
+        color: $color-gray-light; 
+
+        &:hover{
+            background-color: $color-gray-medium;
+            color: $color-gray-light;
+            border-color: #fff;
+        }
+        &:active{
+            background-color: $color-gray-light;
+            color: $color-gray-dark;
+        }
+    }
+    .button-operator{
+        color: $color-blue-light;
+
+        &:hover{
+            background-color: $color-blue-dark;
+            border-color: #fff;
+            color: $color-gray-light;
+        }
+        &:active{
+            background-color: $color-blue-light;
+            color: $color-gray-dark;
+        }
+    }
+    .button-delete-all, .button-delete{
+        color: $color-red-dark;
+
+        &:hover{
+            background-color: $color-red-dark;
+            color: $color-gray-light;
+            border-color: #fff;
+        }
+        &:active{
+            background-color: $color-red-light;
+            color: $color-gray-dark;
+        }
+    }
+    .button-equal{
+        background-color: $color-blue-light;
+        color: $color-gray-dark;
+
+        &:hover{
+            background-color: $color-blue-dark;
+            color: $color-gray-light;
+            border-color: #fff;
+        }
+        &:active{
+            background-color: $color-blue-light;
+            color: $color-gray-dark;
+        }
+    }
+    .empty-box{
+        cursor: default;
+    }
+}
+.display-top{
+    @extend %display;
+    font-size: 1.5em;
+    border-top: 2px solid $color-gray-dark;
+}
+.display-bottom{
+    @extend %display;
+    font-size: 2.5em;
+    border-bottom: 2px solid $color-gray-dark;
+}
