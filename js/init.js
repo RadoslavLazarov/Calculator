@@ -20,6 +20,7 @@ function calculate(){
             if ($('.display-bottom').val().length < maxChars) {
             return val + number;
             } else{
+            alert("The limit of symbols is reached!");
             return $('.display-bottom').val();
             }   
         });
