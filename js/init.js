@@ -1,4 +1,4 @@
-function buttonResize(){
+function calcResize(){
     var getButtonWidth = $('button').outerWidth(),
         setDisplayHeight = getButtonWidth / 2;
 
@@ -30,10 +30,14 @@ function calculate(){
         var operator = $(this).val(),
             displayBottom = $('.display-bottom').val();
         
+        if(displayBottom > 0){
         $('.display-top').val(function(i, val) {
             return val + displayBottom + operator;
         });
         $('.display-bottom').val(' ');
+        } else{
+            $('.display-top').val(displayBottom.val() + operator);
+        }
     });
 
     $('.button-equal').on('click', function(){
@@ -56,13 +60,11 @@ function calculate(){
     });
 }
 
-
-
 $(function(){
-    buttonResize();
+    calcResize();
     calculate();
 });
 
 $(window).resize(function () {
-    buttonResize();
+    calcResize();
 });
