@@ -33,7 +33,7 @@ input:focus, button:focus{
         font-weight: 600;
         cursor: pointer;
     }
-    .button-number{
+    .button-number, .button-decimal{
         color: $color-gray-light; 
 
         &:hover{

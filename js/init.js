@@ -12,51 +12,66 @@ function calcResize(){
 
 function calculate(){
 
+    var displayTop = $('.display-top'),
+        displayBottom = $('.display-bottom');
+        
     $('.button-number').on('click', function buttonNumber(){
         var number = $(this).val();
-        
-        $('.display-bottom').val(function(i, val) {
+
+        displayBottom.val(function(i, val) {
             var maxChars = 10;
-            if ($('.display-bottom').val().length < maxChars) {
-            return val + number;
+            if (displayBottom.val().length < maxChars) {
+                return val + number;
             } else{
-            alert("The limit of symbols is reached!");
-            return $('.display-bottom').val();
+                alert("The limit of symbols is reached!");
+                return displayBottom.val();
             }   
         });
     });
-    
+
+    $('.button-decimal').on('click', function(){
+        if((displayBottom.val() != '') && (displayBottom.val() != ' ') && (displayBottom.val().indexOf('.') < 1)){
+            displayBottom.val(displayBottom.val() + $(this).val());
+        }
+    });
+
     $('.button-operator').on('click', function buttonOperator(){
-        var operator = $(this).val(),
-            displayBottom = $('.display-bottom').val();
+        var operator = $(this).val();
         
-        if(displayBottom > 0){
-        $('.display-top').val(function(i, val) {
-            return val + displayBottom + operator;
-        });
-        $('.display-bottom').val(' ');
-        } else{
-            $('.display-top').val(displayBottom.val() + operator);
+        if((displayBottom.val() != 0) && (displayBottom.val().charAt(displayBottom.val().length-1) != '.')){
+            displayTop.val(function(i, val) {
+                return val + displayBottom.val() + operator;
+            });
+            displayBottom.val(' ');
+        }else if(displayTop.val() != 0){
+            displayTop.val(displayTop.val().slice(0, -1));
+            displayTop.val(function(i, val) {
+                return val + operator;
+            });
         }
     });
 
     $('.button-equal').on('click', function(){
-        var displayTop = $('.display-top').val(),
-            displayBottom = $('.display-bottom').val(),
-            total = displayTop + displayBottom,
+        
+        var total = displayTop.val() + displayBottom.val(),
             calculate = eval(total);
 
-        $('.display-bottom').val(calculate);
-        $('.display-top').val(' ')
+        displayBottom.val(calculate);
+        displayTop.val('');
+            
     });
 
     $('.button-delete-all').on('click', function(){
-        $('.display-top').val(' ');
-        $('.display-bottom').val(' ');
+        displayTop.val('');
+        displayBottom.val('');
     });
 
     $('.button-delete').on('click', function(){
-        $('.display-bottom').val(' ');
+        if(displayTop.val()){
+            displayBottom.val(' ');
+        } else{
+            displayBottom.val('');
+        }
     });
 }
 
@@ -65,6 +80,6 @@ $(function(){
     calculate();
 });
 
-$(window).resize(function () {
+$(window).resize(function(){
     calcResize();
 });

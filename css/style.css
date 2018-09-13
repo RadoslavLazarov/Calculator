@@ -28,17 +28,17 @@ input:focus, button:focus {
   cursor: pointer;
 }
 
-.buttons-row .button-number {
+.buttons-row .button-number, .buttons-row .button-decimal {
   color: #939393;
 }
 
-.buttons-row .button-number:hover {
+.buttons-row .button-number:hover, .buttons-row .button-decimal:hover {
   background-color: #3c3c3c;
   color: #939393;
   border-color: #fff;
 }
 
-.buttons-row .button-number:active {
+.buttons-row .button-number:active, .buttons-row .button-decimal:active {
   background-color: #939393;
   color: #1e1e1e;
 }
