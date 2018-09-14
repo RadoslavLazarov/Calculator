@@ -67,9 +67,7 @@ function calculate(){
     });
 
     $('.button-delete').on('click', function(){
-        if(displayTop.val()){
-            displayBottom.val('');
-        }
+        displayBottom.val('');
     });
 
     function checkForInfinity(){
