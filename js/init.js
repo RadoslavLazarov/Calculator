@@ -14,19 +14,22 @@ function calculate(){
 
     var displayTop = $('.display-top'),
         displayBottom = $('.display-bottom');
-        
+
     $('.button-number').on('click', function buttonNumber(){
         var number = $(this).val();
+        var maxChars = 10;
 
-        displayBottom.val(function(i, val) {
-            var maxChars = 10;
+        checkForInfinity();
+        if(displayBottom.val().indexOf("0") === 0 && (displayBottom.val().indexOf('.') < 1)) {
+            displayBottom.val('');
+        }else{
             if (displayBottom.val().length < maxChars) {
-                return val + number;
+                return displayBottom.val(displayBottom.val() + number);
             } else{
                 alert("The limit of symbols is reached!");
                 return displayBottom.val();
-            }   
-        });
+            }
+        } 
     });
 
     $('.button-decimal').on('click', function(){
@@ -38,24 +41,21 @@ function calculate(){
     $('.button-operator').on('click', function buttonOperator(){
         var operator = $(this).val();
         
+        checkForInfinity();
         if((displayBottom.val() != 0) && (displayBottom.val().charAt(displayBottom.val().length-1) != '.')){
-            displayTop.val(function(i, val) {
-                return val + displayBottom.val() + operator;
-            });
-            displayBottom.val(' ');
+            displayTop.val(displayTop.val() + displayBottom.val() + operator);
+            displayBottom.val('');
+            displayBottom.attr('placeholder' , '');
         }else if(displayTop.val() != 0){
             displayTop.val(displayTop.val().slice(0, -1));
-            displayTop.val(function(i, val) {
-                return val + operator;
-            });
+            return displayTop.val(displayTop.val() + operator);
         }
     });
 
     $('.button-equal').on('click', function(){
-        
         var total = displayTop.val() + displayBottom.val(),
             calculate = eval(total);
-
+            
         displayBottom.val(calculate);
         displayTop.val('');
             
@@ -68,11 +68,15 @@ function calculate(){
 
     $('.button-delete').on('click', function(){
         if(displayTop.val()){
-            displayBottom.val(' ');
-        } else{
             displayBottom.val('');
         }
     });
+
+    function checkForInfinity(){
+        if(displayBottom.val() === 'Infinity'){
+            displayBottom.val('');
+        }
+    }
 }
 
 $(function(){
