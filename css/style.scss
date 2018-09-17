@@ -6,7 +6,7 @@ $color-blue-dark: #3030fa;
 $color-red-light: #fc4343;
 $color-red-dark: #ff2a2a;
 
-%display{
+%display {
     background-color: $color-gray-medium;
     border-left: 2px solid $color-gray-dark;
     border-right: 2px solid $color-gray-dark;
@@ -18,84 +18,84 @@ $color-red-dark: #ff2a2a;
     font-weight: 600;
     padding-right: 15px;
 }
-html, body{
+html, body {
     height: 100%;
     background-color: $color-gray-light;
 }
-input:focus, button:focus{
+input:focus, button:focus {
     outline: none;
 }
-.buttons-row{
-    .button{
+.buttons-row {
+    .button {
         border: 1px solid $color-gray-medium;
         background-color: $color-gray-dark;
         font-size: 2em;
         font-weight: 600;
         cursor: pointer;
     }
-    .button-number, .button-decimal{
+    .button-number, .button-decimal {
         color: $color-gray-light; 
 
-        &:hover{
+        &:hover {
             background-color: $color-gray-medium;
             color: $color-gray-light;
             border-color: #fff;
         }
-        &:active{
+        &:active {
             background-color: $color-gray-light;
             color: $color-gray-dark;
         }
     }
-    .button-operator{
+    .button-operator {
         color: $color-blue-light;
 
-        &:hover{
+        &:hover {
             background-color: $color-blue-dark;
             border-color: #fff;
             color: $color-gray-light;
         }
-        &:active{
+        &:active {
             background-color: $color-blue-light;
             color: $color-gray-dark;
         }
     }
-    .button-delete-all, .button-delete{
+    .button-delete-all, .button-delete {
         color: $color-red-dark;
 
-        &:hover{
+        &:hover {
             background-color: $color-red-dark;
             color: $color-gray-light;
             border-color: #fff;
         }
-        &:active{
+        &:active {
             background-color: $color-red-light;
             color: $color-gray-dark;
         }
     }
-    .button-equal{
+    .button-equal {
         background-color: $color-blue-light;
         color: $color-gray-dark;
 
-        &:hover{
+        &:hover {
             background-color: $color-blue-dark;
             color: $color-gray-light;
             border-color: #fff;
         }
-        &:active{
+        &:active {
             background-color: $color-blue-light;
             color: $color-gray-dark;
         }
     }
-    .empty-box{
+    .empty-box {
         cursor: default;
     }
 }
-.display-top{
+.display-top {
     @extend %display;
     font-size: 1.5em;
     border-top: 2px solid $color-gray-dark;
 }
-.display-bottom{
+.display-bottom {
     @extend %display;
     font-size: 2.5em;
     border-bottom: 2px solid $color-gray-dark;

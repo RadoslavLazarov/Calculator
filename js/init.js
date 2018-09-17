@@ -1,87 +1,130 @@
-function calcResize(){
-    var getButtonWidth = $('button').outerWidth(),
+function calcResize() {
+    var getButtonWidth = $("button").outerWidth(),
         setDisplayHeight = getButtonWidth / 2;
 
-    $('button, .empty-box').css({
-        'height': getButtonWidth + 'px'
+    $("button, .empty-box").css({
+        height: getButtonWidth + "px"
     });
-    $('.display').css({
-        'height': setDisplayHeight + 'px'
+    $(".display").css({
+        height: setDisplayHeight + "px"
     });
 }
 
-function calculate(){
+function calculate() {
+    var displayTop = $(".display-top"),
+        displayBottom = $(".display-bottom");
 
-    var displayTop = $('.display-top'),
-        displayBottom = $('.display-bottom');
+    $(".button-number").on("click", function () {
+        errorCheck();
 
-    $('.button-number').on('click', function buttonNumber(){
-        var number = $(this).val();
-        var maxChars = 10;
+        var number = $(this).val(),
+            maxChars = 10,
+            displayBottomVal = displayBottom.val();
 
-        checkForInfinity();
-        if(displayBottom.val().indexOf("0") === 0 && (displayBottom.val().indexOf('.') < 1)) {
-            displayBottom.val('');
-        }else{
-            if (displayBottom.val().length < maxChars) {
-                return displayBottom.val(displayBottom.val() + number);
-            } else{
+        if (
+            displayBottomVal.indexOf("0") === 0 &&
+            displayBottomVal.indexOf(".") < 1
+        ) {
+            displayBottom.val("");
+        } else {
+            if (displayBottomVal.length < maxChars) {
+                return displayBottom.val(displayBottomVal + number);
+            } else {
                 alert("The limit of symbols is reached!");
-                return displayBottom.val();
+                return displayBottomVal;
             }
-        } 
-    });
-
-    $('.button-decimal').on('click', function(){
-        if((displayBottom.val() != '') && (displayBottom.val() != ' ') && (displayBottom.val().indexOf('.') < 1)){
-            displayBottom.val(displayBottom.val() + $(this).val());
         }
     });
 
-    $('.button-operator').on('click', function buttonOperator(){
-        var operator = $(this).val();
-        
-        checkForInfinity();
-        if((displayBottom.val() != 0) && (displayBottom.val().charAt(displayBottom.val().length-1) != '.')){
-            displayTop.val(displayTop.val() + displayBottom.val() + operator);
-            displayBottom.val('');
-            displayBottom.attr('placeholder' , '');
-        }else if(displayTop.val() != 0){
-            displayTop.val(displayTop.val().slice(0, -1));
+    $(".button-decimal").on("click", function () {
+        errorCheck();
+
+        var displayBottomVal = displayBottom.val();
+
+        if (
+            displayBottomVal != "" &&
+            displayBottomVal != " " &&
+            displayBottomVal.indexOf(".") < 1
+        ) {
+            displayBottom.val(displayBottomVal + $(this).val());
+        }
+    });
+
+    $(".button-operator").on("click", function () {
+        errorCheck();
+
+        var operator = $(this).val(),
+            displayBottomVal = displayBottom.val(),
+            displayTopVal = displayTop.val();
+
+        if (
+            displayBottomVal != 0 &&
+            displayBottomVal.charAt(displayBottomVal.length - 1) != "."
+        ) {
+            displayTop.val(displayTopVal + displayBottomVal + operator);
+            displayBottom.val("");
+            displayBottom.attr("placeholder", "");
+        } else if (displayBottomVal == "0") {
+            displayTop.val(displayTopVal + displayBottomVal + operator);
+            displayBottom.val("");
+            displayBottom.attr("placeholder", "");
+        } else if (displayBottomVal.charAt(displayBottomVal.length - 1) == ".") {
+            displayTop.val(displayTopVal + displayBottomVal.slice(0, -1) + operator);
+            displayBottom.val("");
+            displayBottom.attr("placeholder", "");
+        } else if (displayTop.val() != 0) {
+            displayTop.val(displayTopVal.slice(0, -1));
             return displayTop.val(displayTop.val() + operator);
         }
     });
 
-    $('.button-equal').on('click', function(){
+    $(".button-equal").on("click", function () {
         var total = displayTop.val() + displayBottom.val(),
             calculate = eval(total);
-            
-        displayBottom.val(calculate);
-        displayTop.val('');
-            
-    });
-
-    $('.button-delete-all').on('click', function(){
-        displayTop.val('');
-        displayBottom.val('');
-    });
-
-    $('.button-delete').on('click', function(){
-        displayBottom.val('');
-    });
-
-    function checkForInfinity(){
-        if(displayBottom.val() === 'Infinity'){
-            displayBottom.val('');
+        if (calculate === Infinity || calculate === -Infinity) {
+            displayBottom.val("Can not divide by zero!");
+            $(".display-bottom").css({
+                "font-size": "1.5em"
+            });
+        } else if (isNaN(calculate)) {
+            displayBottom.val("Result is undefined!");
+            $(".display-bottom").css({
+                "font-size": "1.5em"
+            });
+        } else {
+            displayBottom.val(calculate);
+            displayTop.val("");
         }
+    });
+
+    $(".button-delete-all").on("click", function () {
+        displayTop.val("");
+        displayBottom.val("");
+    });
+
+    $(".button-delete").on("click", function () {
+        displayBottom.val("");
+    });
+
+    function errorCheck() {
+        if (
+            displayBottom.val() === "Can not divide by zero!" ||
+            displayBottom.val() === "Result is undefined!"
+        ) {
+            displayTop.val("");
+            displayBottom.val("");
+        }
+        $(".display-bottom").css({
+            "font-size": "2.5em"
+        });
     }
 }
 
-$(function(){
+$(function () {
     calcResize();
     calculate();
 });
 
-$(window).resize(function(){
+$(window).resize(function () {
     calcResize();
 });
