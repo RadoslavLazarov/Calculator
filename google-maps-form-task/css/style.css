@@ -1,0 +1,33 @@
+html, body {
+  height: 100%;
+}
+
+.inner {
+  width: 95%;
+  margin: auto;
+}
+
+.form-wrap {
+  margin-top: 50px;
+}
+
+.form-wrap .input-wrap {
+  height: 80px;
+}
+
+.form-wrap .input-wrap input {
+  width: 100%;
+  height: 50px;
+  font-size: 1.5em;
+  padding-left: 15px;
+}
+
+.form-wrap .input-wrap .error {
+  color: red;
+  display: none;
+}
+
+#map {
+  height: 500px;
+}
+/*# sourceMappingURL=style.css.map */
